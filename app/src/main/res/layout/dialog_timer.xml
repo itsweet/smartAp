@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="短信验证码"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/dialogtimer_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/dialogtimer_send"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:hint="输入验证码" />
+
+    <Button
+        android:id="@+id/dialogtimer_send"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="85dp"
+        android:background="@color/colorGreen"
+        android:text="button"
+        android:textColor="@color/colorWite" />
+
+    <Button
+        android:id="@+id/dialogtimer_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="184dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="确认"
+        android:textColor="@android:color/white" />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.lit.smartap_20180111.MainActivity">
+    <item
+        android:id="@+id/action_adddevices"
+        android:orderInCategory="100"
+        android:title="@string/adddevices"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="logout"
+        app:showAsAction="never"/>
+</menu>
