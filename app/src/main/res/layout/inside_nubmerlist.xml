@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:id="@+id/inside_item_list">
+
+    <RelativeLayout
+        android:id="@+id/inside_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:background="@android:color/background_light"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/title_customer"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:text="@string/item_list_customer"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tittle_goodsname"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/title_customer"
+            android:text="@string/item_list_goodsname" />
+
+        <TextView
+            android:id="@+id/title_number"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_toEndOf="@+id/tittle_goodsname"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:text="@string/item_list_number" />
+
+        <TextView
+            android:id="@+id/title_remark"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/title_number"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:text="@string/item_list_remark" />
+
+        <TextView
+            android:id="@+id/title_purchasePrice"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/title_remark"
+            android:gravity="center"
+            android:text="@string/add_purchasePrice"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/inside_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inside_item_title"
+        android:choiceMode="multipleChoice" />
+
+</RelativeLayout>

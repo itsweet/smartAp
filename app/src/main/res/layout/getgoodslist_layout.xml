@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/profit_rel"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <!--
+    <ListView
+        android:id="@+id/listview_getgoods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profit_rel"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:baselineAligned="false"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp">
+    </ListView>
+    -->
+
+    <RelativeLayout
+        android:id="@+id/profit_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_button"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总价:" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:text="TextView" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        style="?android:buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="false"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/goodslist_bygoods"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/goodsname"
+            android:tint="@color/colorBlack"
+            />
+
+        <Button
+            android:id="@+id/goodslist_addlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@mipmap/add"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom|center"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/goodslist_bycustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/customer"
+            android:tint="@color/colorPrimary"
+            />
+    </LinearLayout>
+</RelativeLayout>

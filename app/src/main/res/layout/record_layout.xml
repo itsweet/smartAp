@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/record_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edit_starttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:inputType="none|date"
+        android:labelFor="@+id/edit_endtime"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/edit_endtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edit_starttime"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/edit_starttime"
+        android:ems="10"
+        android:inputType="date"
+        android:labelFor="@+id/edit_starttime"
+        android:textSize="14sp" />
+    <LinearLayout
+        android:id="@+id/search_date_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_starttime"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button_oneMonth"
+            android:text="1个月" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button_threeMonth"
+            android:text="3个月" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button_sixMonth"
+            android:text="6个月" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button_oneYear"
+            android:text="1年" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/edittext_forsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_date_linear"
+        android:layout_toStartOf="@+id/button_search" />
+
+    <Button
+        android:id="@+id/button_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_date_linear"
+        android:layout_alignParentEnd="true"
+        android:onClick="get_listview_record"
+        android:text="搜索" />
+
+    <ListView
+        android:id="@+id/listview_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_record_profit"
+        android:layout_below="@+id/button_search" />
+
+    <RelativeLayout
+        android:id="@+id/layout_record_profit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/title_record_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="利润:" />
+
+        <TextView
+            android:id="@+id/record_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/title_record_profit" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

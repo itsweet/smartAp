@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inside_numberlist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/item_customer"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_goodsname"
+        android:layout_alignBaseline="@+id/item_customer"
+        android:layout_toEndOf="@+id/item_customer"
+        />
+
+    <TextView
+        android:id="@+id/item_number"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_toEndOf="@+id/item_goodsname"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/item_remark"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/item_number"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/item_purchasePrice"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/item_remark"
+        android:layout_toEndOf="@+id/item_remark"
+        android:gravity="center" />
+</RelativeLayout>

@@ -15,11 +15,20 @@ public class ConfigList {
     static final int defMqttPort = 1880;
     public static int TcpPort = defMqttPort;
     public static int UdpPort = defUDPPort;
-
+    static final double default_rate = 0.84;
+    static double rate=default_rate;
 
     private static String username; //用户登录的名
     private static String userpwd;  //用户登录密码
     private static String vcode;    //短信验证码
+
+    public static double getRate() {
+        return rate;
+    }
+
+    public static void setRate(double rate) {
+        ConfigList.rate = rate;
+    }
 
     public static void setServerAddress(String serverAddress) {
         ConfigList.serverAddress = getInetAddress(serverAddress);

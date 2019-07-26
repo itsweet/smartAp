@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/itforpayed_goodsname"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/itforpayed_goodsnumber"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/itforpayed_goodsname" />
+
+    <TextView
+        android:id="@+id/itforpayed_customer"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/itforpayed_goodsnumber" />
+
+    <TextView
+        android:id="@+id/itforpayed_Sellprice"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/itforpayed_customer" />
+
+    <TextView
+        android:id="@+id/itforpayed_buyed"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/itforpayed_Sellprice" />
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/record_goodname_id"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/record_customer_id"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/record_goodname_id"
+        android:layout_toRightOf="@+id/record_goodname_id"
+        />
+
+    <TextView
+        android:id="@+id/record_number_id"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/record_customer_id"
+        android:layout_toEndOf="@+id/record_customer_id" />
+
+    <TextView
+        android:id="@+id/record_Category_id"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+
+        android:layout_below="@+id/record_goodname_id" />
+
+    <TextView
+        android:id="@+id/record_sellprice_id"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/record_Category_id"
+        android:layout_toEndOf="@+id/record_Category_id"
+        android:layout_toRightOf="@+id/record_Category_id"
+
+        />
+
+    <TextView
+        android:id="@+id/record_purchaseprice_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/record_Category_id"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/record_sellprice_id"
+        android:layout_toEndOf="@+id/record_sellprice_id"
+        />
+</RelativeLayout>

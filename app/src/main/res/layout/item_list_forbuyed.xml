@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="afterDescendants"
+    android:orientation="horizontal"
+    >
+<!--
+    <TextView
+        android:id="@+id/itforpayed_title_goodsname"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:text="@string/item_list_goodsname" />
+-->
+
+    <TextView
+        android:id="@+id/itforpayed_goodsname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:gravity="center|center_vertical"
+        android:text="商品名称" />
+
+    <TextView
+        android:id="@+id/itforpayed_remarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start|center_vertical"
+        android:visibility="invisible"
+        android:text="备注" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="X" />
+
+    <TextView
+        android:id="@+id/itforpayed_goodsnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="数量" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":" />
+
+    <TextView
+        android:id="@+id/itforpayed_Sellprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="售价" />
+
+    <CheckBox
+        android:id="@+id/checkBox_payed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:text="@string/checkbox_sended" />
+
+    <CheckBox
+        android:id="@+id/checkBox_sended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:focusable="false"
+        android:text="@string/checkbox_payed" />
+
+</LinearLayout>

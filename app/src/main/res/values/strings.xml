@@ -38,4 +38,43 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
+    <string name="addlist_str">购物清单</string>
+    <string name="buyedlist_str">收款发货</string>
+    <string name="payedlist_str">发货</string>
+    <string name="recordlist_str">记录统计</string>
+
+    <string name="Toast_checkname">请填写商品名</string>
+    <string name="Toast_checkcategroy">请填写分类</string>
+    <string name="Toast_checkcustomerandnumber">请填写商品数量和用户名</string>
+    <string name="Toast_numberwarn">数量不能超过 1000!</string>
+
+    <string name="_0_0">0.0</string>
+    <string name="add_name">物品名称</string>
+    <string name="add_number">数量</string>
+    <string name="add_category">分类</string>
+    <string name="add_customer">联系人</string>
+    <string name="add_remark">备注</string>
+    <string name="add_sellingPrice">售价</string>
+    <string name="add_exchangeRate">汇率</string>
+    <string name="add_purchasePrice">进价</string>
+    <string name="add_profit">本单利润:（售价-进价x汇率）x 数量=￥</string>
+    <string name="insert_button">保存</string>
+    <string name="add_editName_hint">限填单个商品（中文15字，英文30字以内）</string>
+    <string name="add_editCategory_hint">可按购买地点、派单对象、时间等</string>
+    <string name="add_editCustomer_hint">限填单个客户（中文15字，英文30字以内）</string>
+
+    <string name="item_list_goodsCategory">分类</string>
+    <string name="item_list_goodsname">商品</string>
+    <string name="item_list_customer">买家</string>
+    <string name="item_list_number">数量</string>
+    <string name="item_list_remark">备注</string>
+    <string name="item_list_buyed">买到</string>
+
+    <string name="checkbox_payed">付</string>
+    <string name="checkbox_sended">发</string>
+    <string name="menu_setting">设置</string>
+
+    <string name="popupwindow_delete">删除</string>
+    <string name="popupwindow_buyed">已经购买</string>
 </resources>

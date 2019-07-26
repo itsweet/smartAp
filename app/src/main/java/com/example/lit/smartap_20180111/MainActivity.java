@@ -50,12 +50,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.example.lit.smartap_20180111.Mview.DaidaigouView;
 import com.example.lit.smartap_20180111.Structure.Demo_RecyclerView;
 import com.example.lit.smartap_20180111.data.ConnectStatus;
 import com.example.lit.smartap_20180111.data.DataMQTT;
 import com.example.lit.smartap_20180111.data.IOT_CMD;
 import com.example.lit.smartap_20180111.data.MqttSenderListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -185,8 +187,10 @@ public class MainActivity extends AppCompatActivity implements
         //popupWindow.setTouchable(true);
         //popupWindow.setOutsideTouchable(true);
         //初始化登录界面
-        init_signin();
-        initMainActivity();
+        //init_signin();
+        initMainActivity(mainView);
+        mainView = new DaidaigouView(this).getView();
+        setContentView(mainView);
         //startMainActivity();
     }
 
@@ -221,22 +225,27 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
     */
-
-    protected void initMainActivity(){
-        toolbar = (Toolbar) mainView.findViewById(R.id.toolbar);
+    private void initMainActivity(@NotNull View view){
+        toolbar = view.findViewById(R.id.app_tab_toolbar);
         toolbar.setTitle(getResources().getString(R.string.title_name));
-        toolbar_text = mainView.findViewById(R.id.toolbar_text);
+        toolbar_text = view.findViewById(R.id.toolbar_text);
         setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = mainView.findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = mainView.findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        Log.i(TAG, "initMainActivity: finish");
+
+    }
+    protected void initMainActivity(){
+
+        NavigationView navigationView = mainView.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
-        mTabLayout=mainView.findViewById(R.id.tablayout);
+        mTabLayout=mainView.findViewById(R.id.app_tablayout);
         mViewPager=mainView.findViewById(R.id.container);
         initdata();
         initTabView();

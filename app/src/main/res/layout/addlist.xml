@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:id="@+id/addList_id">
+
+    <ScrollView
+        android:id="@+id/scrcll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relative_button">
+
+        <RelativeLayout
+            android:id="@+id/relative_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light">
+
+            <TextView
+                android:id="@+id/insert_textView_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/add_name"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <AutoCompleteTextView
+                android:id="@+id/insert_editName_id"
+                android:completionThreshold="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/insert_textView_name"
+                android:layout_marginTop="10sp"
+                android:layout_toEndOf="@+id/insert_textView_name"
+                android:hint="@string/add_editName_hint"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:selectAllOnFocus="false"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="15sp"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/insert_editCategory_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/insert_textView_name">
+                <TextView
+                    android:id="@+id/textView_Category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/add_category"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/insert_editCategory_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:completionThreshold="1"
+                    android:hint="@string/add_editCategory_hint"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/insert_editCustomer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/insert_editCategory_layout"
+                >
+                <TextView
+                    android:id="@+id/textView_Customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_customer"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+                <LinearLayout
+                    android:id="@+id/insert_linearlayout_foradd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+                </LinearLayout>
+                <Button
+                    android:id="@+id/button_add2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/add"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView_remarks"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/insert_editCustomer_layout"
+                android:layout_marginTop="10sp"
+                android:text="@string/add_remark"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/insert_editRemark_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView_remarks"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/textView_remarks"
+                android:hint=""
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView_sellingPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView_remarks"
+                android:layout_marginTop="10sp"
+                android:text="@string/add_sellingPrice"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/insert_sellingPrice_id"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView_sellingPrice"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/textView_sellingPrice"
+                android:hint="@string/_0_0"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView_exchangeRate"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView_sellingPrice"
+                android:layout_marginTop="10sp"
+                android:text="@string/add_exchangeRate"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/insert_exchangeRate_id"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView_exchangeRate"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/textView_exchangeRate"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView_purchasePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView_exchangeRate"
+                android:layout_marginTop="10sp"
+                android:text="@string/add_purchasePrice"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/insert_purchasePrice_id"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView_purchasePrice"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/textView_purchasePrice"
+                android:hint="@string/_0_0"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView_profit"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView_purchasePrice"
+                android:layout_marginTop="10sp"
+                android:text="@string/add_profit"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView_profit_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView_profit"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/textView_profit"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relative_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/insert_button_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_marginTop="10sp"
+            android:text="@string/insert_button"
+            android:textSize="15sp"
+            tools:ignore="RtlHardcoded"
+            tools:layout_alignWithParentIfMissing="false" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
+
+
