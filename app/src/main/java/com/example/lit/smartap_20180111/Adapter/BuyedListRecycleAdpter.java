@@ -67,7 +67,7 @@ public class BuyedListRecycleAdpter extends RecyclerView.Adapter<BuyedListRecycl
         }
     }
 
-    void changeCursor(Cursor cursor){
+    public void changeCursor(Cursor cursor){
         Log.i(TAG, "changeCursor: ");
         this.mcursor=cursor;
         initSignList();
@@ -158,7 +158,7 @@ public class BuyedListRecycleAdpter extends RecyclerView.Adapter<BuyedListRecycl
                     selcetPosition=pos;
                     */
                     //更新界面,适配器更新显示，数据无变化
-                    notifyDataSetChanged();
+                    notifyItemChanged(pos);
                 }
             });
             holder.recycle_buyedlist_allfinish.setOnClickListener(new View.OnClickListener() {

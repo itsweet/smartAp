@@ -28,6 +28,11 @@
         <activity android:name=".Mview.AddList">
 
         </activity>
+        <provider
+            android:authorities="com.example.lit.smartap_20180111.provider"
+            android:name=".core.MyContentProvider"
+            android:exported="true"
+            ></provider>
         <activity android:name=".SearchActivity"
             android:label=""
             />

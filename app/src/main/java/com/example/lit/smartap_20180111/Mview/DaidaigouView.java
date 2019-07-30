@@ -1,6 +1,7 @@
 package com.example.lit.smartap_20180111.Mview;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -56,8 +57,7 @@ public class DaidaigouView {
     private EditText editText_startime, editText_endtime, edit_search;
     private TextView mClacProfit;
     private int mYear, mMonth, mDay;
-    private Cursor shoplist_Cursor, record_Cursor;
-    private SimpleCursorAdapter record_itemListAdapter;
+    private Cursor shoplist_Cursor, record_Cursor,sendlist_Cursor;
     private List<String> mTitleList = new ArrayList<>();//标题集合
     private List<View> mViewList = new ArrayList<>();//页卡视图集合
     public static final int SHOWGOODSNAME = 0;
@@ -69,6 +69,8 @@ public class DaidaigouView {
     AppCompatImageView goodslist_bygoods, goodslist_bycustomer;
     private RecyclerView recyclerView_shop, recycleView_send;
     private RecycleAdpter recycleAdpter;
+    private BuyedListRecycleAdpter buyedListRecycleAdpter;
+    private SimpleCursorAdapter record_itemListAdapter;
     private DaidaigouSqliteHelper sqliteHelper;
 
     public DaidaigouView(MainActivity context) {
@@ -140,6 +142,23 @@ public class DaidaigouView {
 
     }
 
+    public void changeCursor(){
+        if (recycleAdpter != null) {
+            recycleAdpter.changeCursor(SHOPLIST_FLAG);
+        }
+        if (buyedListRecycleAdpter != null) {
+            buyedListRecycleAdpter.changeCursor(sqliteHelper.getcustomerlistforbuyed());
+        }
+        TextView profitView = myview2.findViewById(R.id.goodslist_textView2);
+        profitView.setText(sqliteHelper.getSellingPrice());
+        TextView allgoodsPrice = myview1.findViewById(R.id.goodslist_textView2);
+        allgoodsPrice.setText(sqliteHelper.getAllGoodsPrice());
+        if (record_itemListAdapter!=null){
+            record_itemListAdapter.changeCursor(record_Cursor=calctimezonerecords());
+            record_itemListAdapter.notifyDataSetChanged();
+        }
+
+    }
 
     class MyPagerAdapter extends PagerAdapter {
         private List<View> mViewList;
@@ -209,7 +228,7 @@ public class DaidaigouView {
         recyclerView_shop.setAdapter(recycleAdpter);
 
         //listView_shop=(ListView)myview1.findViewById(R.id.listview_getgoods) ;
-        TextView allgoodsPrice = myview1.findViewById(R.id.textView2);
+        TextView allgoodsPrice = myview1.findViewById(R.id.goodslist_textView2);
         /*
         Cursor cursor = sqliteHelper.getAllGoodsPrice(),
                 null,null,null,null);
@@ -331,13 +350,13 @@ public class DaidaigouView {
         Button goodslist_addlist = (Button) myview2.findViewById(R.id.goodslist_addlist);
         goodslist_bycustomer = myview2.findViewById(R.id.goodslist_bycustomer);
         goodslist_bygoods = myview2.findViewById(R.id.goodslist_bygoods);
-        TextView profitView = myview2.findViewById(R.id.textView2);
+        TextView profitView = myview2.findViewById(R.id.goodslist_textView2);
         profitView.setText(sqliteHelper.getSellingPrice());
         goodslist_addlist.setBackgroundResource(R.mipmap.reduce);
         goodslist_bycustomer.setVisibility(View.INVISIBLE);
         goodslist_bygoods.setVisibility(View.INVISIBLE);
-        Cursor sendlist_Cursor = sqliteHelper.getcustomerlistforbuyed();
-        BuyedListRecycleAdpter buyedListRecycleAdpter = new BuyedListRecycleAdpter(sendlist_Cursor, mContext);
+        sendlist_Cursor = sqliteHelper.getcustomerlistforbuyed();
+        buyedListRecycleAdpter = new BuyedListRecycleAdpter(sendlist_Cursor, mContext);
         recycleView_send.setLayoutManager(new LinearLayoutManager(mContext));
         recycleView_send.setAdapter(buyedListRecycleAdpter);
 
@@ -417,7 +436,7 @@ public class DaidaigouView {
     }
 
     //默认设置起止时间,day 表示距今多少天
-    private void setDateforTime(int day) {
+    public void setDateforTime(int day) {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.CHINA);
         Calendar cal = Calendar.getInstance();
@@ -471,7 +490,7 @@ public class DaidaigouView {
                 R.id.record_purchaseprice_id,
                 R.id.record_Category_id
         };
-        if (record_Cursor != null && record_Cursor.getCount() > 0) {
+        if (record_Cursor != null) {
             record_itemListAdapter = new SimpleCursorAdapter(
                     mContext,
                     R.layout.record_item_list,
@@ -593,32 +612,77 @@ public class DaidaigouView {
                                     , DaidaigouSqliteHelper.ID + "=" + id, null);
                             break;
                     }
-                /*
-                String goodsname = shoplist_Cursor.getString(shoplist_Cursor.getColumnIndex(DaidaigouSqliteHelper.goodsName));
-                String goodscate = shoplist_Cursor.getString(shoplist_Cursor.getColumnIndex(DaidaigouSqliteHelper.goodsCategory));
-                Cursor getgoodsnumberlist_category = daidaigouSqliteHelper.getgoodsnumberlist_category(goodsname, goodscate);
-                if  (getgoodsnumberlist_category != null && getgoodsnumberlist_category.moveToFirst()) {
-                    do {
-                        switch (v.getId()) {
-                            case R.id.popup_button_first:
-                                daidaigouSqliteHelper.upDataBuyed(getgoodsnumberlist_category.getInt(getgoodsnumberlist_category.getColumnIndex(DaidaigouSqliteHelper.ID)),
-                                        "1");
-                                break;
-                            case R.id.popup_button_second:
-                                daidaigouSqliteHelper.deletegoodslist(getgoodsnumberlist_category.getInt(getgoodsnumberlist_category.getColumnIndex(DaidaigouSqliteHelper.ID)));
-                                break;
-                        }
-                    }
-                    while (getgoodsnumberlist_category.moveToNext());
-                }
-                */
                     if (mPopupWindow.isShowing()) {
+                        mPopupWindow.dismiss();
+                    }
+                }
+            };
+        }
+        else if (tab==SHOWGOODSBUYED){
+            mPopupWindowlistener= new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendlist_Cursor.moveToPosition(position);
+                    switch (v.getId()) {
+                        case R.id.popup_button_first:
+                            long id = sendlist_Cursor.getLong(sendlist_Cursor.getColumnIndex(DaidaigouSqliteHelper.ID));
+                            update_buyed(id,"0");
+                            break;
+                        case R.id.popup_button_second:
+                            long id2 = sendlist_Cursor.getLong(sendlist_Cursor.getColumnIndex(DaidaigouSqliteHelper.ID));
+                            delete(id2);
+                            //daidaigouSqliteHelper.deletegoodslist();
+                            break;
+                    }
+                    if ( mPopupWindow.isShowing())
+                    {
                         mPopupWindow.dismiss();
                         //listCursorUpdate();
                     }
                 }
             };
+            popup_button_first.setText("未购买");
         }
+        else if(tab==SHOWRECORD){
+            mPopupWindowlistener= new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    record_Cursor.moveToPosition(position);
+                    Long time=System.currentTimeMillis();
+                    switch (v.getId()) {
+                        case R.id.popup_button_first:
+                            sqliteHelper.upDataSended(record_Cursor.getLong(record_Cursor.getColumnIndex(DaidaigouSqliteHelper.ID)),
+                                    "0",Long.toString(time));
+                            break;
+                        case R.id.popup_button_second:
+                            sqliteHelper.deletegoodslist(record_Cursor.getLong(record_Cursor.getColumnIndex(DaidaigouSqliteHelper.ID)));
+                            break;
+                    }
+                    if ( mPopupWindow.isShowing())
+                    {
+                        mPopupWindow.dismiss();
+                        //listCursorUpdate();
+                    }
+                }
+            };
+            popup_button_first.setText("未发送");
+        }
+        popup_button_first.setOnClickListener(mPopupWindowlistener);
+        popup_button_second.setOnClickListener(mPopupWindowlistener);
 
     }
+
+    void update_buyed(long id,String buyed){
+        ContentValues values = new ContentValues();
+        values.put(DaidaigouSqliteHelper.ID,id);
+        values.put(DaidaigouSqliteHelper.buyed,buyed);
+        mContext.getContentResolver().update(MyContentProvider.Uri_update,
+                values,null,null);
+    }
+
+    void delete(long id){
+        mContext.getContentResolver().delete(MyContentProvider.Uri_delete,
+                DaidaigouSqliteHelper.ID+"="+id,null);
+    }
+
 }

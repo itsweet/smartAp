@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -66,21 +67,40 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
 
     void inithashmap(){
         hashmap_Customer = new HashMap<>();
+        SharedPreferences sp0 = mcontext.getSharedPreferences("hashmap_Customer",Context.MODE_PRIVATE);
         //Log.i(TAG, "inithashmap: "+sqliteHelper.toString());
         if (cursor_Customer.moveToFirst()) {
             for (cursor_Customer.moveToFirst(); !cursor_Customer.isAfterLast(); cursor_Customer.moveToNext()) {
                 String text="";
                 text = cursor_Customer.getString(cursor_Customer.getColumnIndex(DaidaigouSqliteHelper.Customer));
                 hashmap_Customer.put(text, false);
+                hashmap_Customer.put(text, sp0.getBoolean(text,false));
             }
         }
+        SharedPreferences sp1 = mcontext.getSharedPreferences("hashmap_Category",Context.MODE_PRIVATE);
         hashmap_Category = new HashMap<>();
         if (cursor_Category.moveToFirst()) {
             for (cursor_Category.moveToFirst(); !cursor_Category.isAfterLast(); cursor_Category.moveToNext()) {
                 String text="";
                 text = cursor_Category.getString(cursor_Category.getColumnIndex(DaidaigouSqliteHelper.goodsCategory));
                 hashmap_Category.put(text, false);
+                hashmap_Category.put(text, sp1.getBoolean(text,false));
             }
+        }
+    }
+
+    private void editShare(String key,Boolean value){
+        SharedPreferences.Editor editor0 = mcontext.getSharedPreferences("hashmap_Category",Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor1 = mcontext.getSharedPreferences("hashmap_Customer",Context.MODE_PRIVATE).edit();
+        switch (mFlag){
+            case 0:
+                editor0.putBoolean(key, value);
+                editor0.apply();
+                break;
+            case 1:
+                editor1.putBoolean(key, value);
+                editor1.apply();
+            default: throw new  NullPointerException ("editShare 错误的flag");
         }
     }
 
@@ -100,22 +120,29 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
     private void updateSignList(){
         Map<String, Boolean> map0 = new HashMap<>(hashmap_Category);
         Map<String, Boolean> map1 = new HashMap<>(hashmap_Customer);
-        //Log.i(TAG, "updateSignList: up start hashmap_Customer:"+
-         //       Arrays.toString(hashmap_Customer.entrySet().toArray())+
-           //     "hashmap_Category:"+Arrays.toString(hashmap_Category.entrySet().toArray()));
+        SharedPreferences.Editor editor0 = mcontext.getSharedPreferences("hashmap_Category",Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor1 = mcontext.getSharedPreferences("hashmap_Customer",Context.MODE_PRIVATE).edit();
         inithashmap();
-        for (Map.Entry<String, Boolean> entry: map0.entrySet()
+        editor0.clear();
+        editor1.clear();
+        for (Map.Entry<String,Boolean> entry: map0.entrySet()
         ) {
             String key  = entry.getKey();
+            boolean value = map0.get(key);
             if (hashmap_Category.containsKey(key)){
-                hashmap_Category.put(key,map0.get(key));
+                hashmap_Category.put(key,value);
+                editor0.putBoolean(key,value);
+                editor0.apply();
             }
         }
-        for (Map.Entry<String, Boolean> entry: map1.entrySet()
+        for (Map.Entry<String,Boolean> entry: map1.entrySet()
         ) {
             String key  = entry.getKey();
+            boolean value = map1.get(key);
             if (hashmap_Customer.containsKey(key)){
-                hashmap_Customer.put(key,map1.get(key));
+                hashmap_Customer.put(key,value);
+                editor1.putBoolean(key,value);
+                editor1.apply();
             }
         }
         //更新保存修改后的map
@@ -261,8 +288,10 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
                 }
                 if(hashmap.get(text)){
                     hashmap.put(text,false);
+                    editShare(text,false);
                 }else {
                     hashmap.put(text,true);
+                    editShare(text,true);
                 }
                 /*
                 //记录展开位置，单个展开使用
@@ -273,7 +302,7 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
                 selcetPosition=position;
                 */
                 //更新界面,适配器更新显示，数据无变化，不需要回调主程序
-                notifyDataSetChanged();
+                notifyItemChanged(position1);
                 //daidaiGou.dataChanged();
             }
         });

@@ -43,7 +43,7 @@
             android:text="总价:" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/goodslist_textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView"

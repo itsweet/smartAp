@@ -1,6 +1,9 @@
 package com.example.lit.smartap_20180111;
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -52,6 +55,7 @@ import java.util.Map;
 
 import com.example.lit.smartap_20180111.Mview.DaidaigouView;
 import com.example.lit.smartap_20180111.Structure.Demo_RecyclerView;
+import com.example.lit.smartap_20180111.core.MyContentProvider;
 import com.example.lit.smartap_20180111.data.ConnectStatus;
 import com.example.lit.smartap_20180111.data.DataMQTT;
 import com.example.lit.smartap_20180111.data.IOT_CMD;
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private View mainView,signinView;//登录页面和主程序页面
     private List<View> mViewList = new ArrayList<>();//页卡视图集合
+    private DaidaigouView daidaigou;
     private Cursor mCursor;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -181,16 +186,16 @@ public class MainActivity extends AppCompatActivity implements
         } ;
         sendTool.setListener(listener);
         //sendTool.recThread.start();
+        //初始化等待界面
         popupWindow=new PopupWindow(mInflater.inflate(R.layout.popup_wait,null),
                 ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
-        //popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //popupWindow.setTouchable(true);
-        //popupWindow.setOutsideTouchable(true);
         //初始化登录界面
         //init_signin();
         initMainActivity(mainView);
-        mainView = new DaidaigouView(this).getView();
-        setContentView(mainView);
+        daidaigou = new DaidaigouView(this);
+        //初始化了DaidaigouView後初始化cursorload
+        initCursorLoader();
+        setContentView(daidaigou.getView());
         //startMainActivity();
     }
 
@@ -240,6 +245,35 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "initMainActivity: finish");
 
     }
+
+    private void initCursorLoader(){
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(0,null, shoplist_Callback);
+        Cursor cursor=getContentResolver().query(MyContentProvider.Uri_query,null,null,null,null);
+        if (cursor!= null) {
+            cursor.close();
+        }
+    }
+    LoaderManager.LoaderCallbacks<Cursor> shoplist_Callback = new LoaderManager.LoaderCallbacks<Cursor>() {
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new CursorLoader(MainActivity.this, MyContentProvider.Uri_query,
+                    null,null,null,null);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            Log.i(TAG, "shoplist_Callback: ");
+            daidaigou.changeCursor();
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
+    };
+
     protected void initMainActivity(){
 
         NavigationView navigationView = mainView.findViewById(R.id.nav_view);
@@ -257,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements
         isheartbeat = true;
         //toolbar.setTitle(getResources().getString(R.string.title_name));
         //setSupportActionBar(toolbar);
-        setContentView(mainView);
+        setContentView(daidaigou.getView());
         popupwindowdismiss();
     }
 
@@ -899,6 +933,23 @@ public class MainActivity extends AppCompatActivity implements
             return mTitleList.get(position);//页卡标题
         }
 
+    }
+
+    public void button_oneMonth(View view){
+        daidaigou.setDateforTime(30);
+        //get_listview_record(view);
+    }
+    public void button_sixMonth(View view){
+        daidaigou.setDateforTime(180);
+        //get_listview_record(view);
+    }
+    public void button_threeMonth(View view){
+        daidaigou.setDateforTime(90);
+        //get_listview_record(view);
+    }
+    public void button_oneYear(View view){
+        daidaigou.setDateforTime(365);
+        //get_listview_record(view);
     }
 }
 

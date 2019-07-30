@@ -25,7 +25,7 @@ public class MyContentProvider extends ContentProvider {
     public static final String UPDATE = "daidaigou/update";
     public static final String QUERY = "daidaigou/query";
     public static final String SCHEME = "content";
-    public static final String AUTHORITY = "com.example.lit.daidaigou.provider";
+    public static final String AUTHORITY = "com.example.lit.smartap_20180111.provider";
     public static final Uri Uri_insert = new Uri.Builder().scheme(SCHEME).authority(AUTHORITY)
             .path(INSERT).build();
     public static final Uri Uri_delete = new Uri.Builder().scheme(SCHEME).authority(AUTHORITY)
@@ -71,7 +71,7 @@ public class MyContentProvider extends ContentProvider {
 
     }
     */
-    enum Update_name{
+    public enum Update_name{
         info,
         payed,
         buyed;

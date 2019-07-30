@@ -174,11 +174,12 @@ public class DaidaigouSqliteHelper extends SQLiteOpenHelper {
         executorService.execute(futureTask);
         if (futureTask.isDone()){
         */
-        Log.i(TAG, "search: columns:"+ Arrays.deepToString(columns)+" selection:"+selection+" arg"+ Arrays.deepToString(selectionArgs));
+        Log.i(TAG, "search: columns:"+ Arrays.deepToString(columns)+" selection:"+selection+" arg:"+ Arrays.deepToString(selectionArgs));
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
             temp = db.query(table_name, columns, selection, selectionArgs, groupBy, having, orderBy + " ASC");
+                Log.i(TAG, "search: number: "+temp.getCount());
             }
         });
         thread.start();
