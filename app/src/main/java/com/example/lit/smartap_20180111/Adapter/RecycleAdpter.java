@@ -100,7 +100,8 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
             case 1:
                 editor1.putBoolean(key, value);
                 editor1.apply();
-            default: throw new  NullPointerException ("editShare 错误的flag");
+                break;
+            default: throw new  NullPointerException ("editShare 错误的flag："+mFlag);
         }
     }
 
@@ -111,9 +112,8 @@ public class RecycleAdpter extends RecyclerView.Adapter<RecycleAdpter.MyViewHold
                 return hashmap_Category;
             case 1:
                 Log.i(TAG, "getHashmap: return 1");
-                return hashmap_Customer
-                        ;
-            default: throw new NullPointerException("错误的flag");
+                return hashmap_Customer;
+            default: throw new NullPointerException("getHashmap错误的flag:"+mFlag);
         }
     }
 
