@@ -13,50 +13,64 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="@android:color/white"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/app_tab_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@android:color/black"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/title_name">
+                app:subtitleTextColor="@color/colorPrimaryDark"
+                app:title="@string/title_name"
+                app:titleTextColor="@color/colorPrimaryDark">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:onClick="AddDevicesView"
+                    app:srcCompat="@drawable/ic_add_black" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    app:srcCompat="@android:drawable/sym_action_email" />
 
                 <TextView
                     android:id="@+id/toolbar_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorBlack"
+                    android:background="@color/colorWite"
                     android:text=""
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:onClick="AddDevicesView"
-                    app:srcCompat="@android:drawable/ic_input_add" />
             </android.support.v7.widget.Toolbar>
+
+
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/app_tablayout"
-            app:layout_behavior=".data.MyAppbarBehavior">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/app_tablayout"
+        android:layout_below="@id/appbar">
 
-        </android.support.v4.view.ViewPager>
+    </android.support.v4.view.ViewPager>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/app_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appbar"
+        android:layout_alignEnd="@id/container"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        app:tabIndicatorColor="@color/colorWite"
-        >
+        app:tabIndicatorColor="@color/colorWite">
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"

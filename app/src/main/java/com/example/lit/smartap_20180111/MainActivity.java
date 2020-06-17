@@ -4,9 +4,11 @@ import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,6 +16,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ComplexColorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.MenuItemHoverListener;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -31,9 +36,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.ScrollingMovementMethod;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ImageSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,6 +62,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.example.lit.smartap_20180111.Mview.DaidaigouView;
 import com.example.lit.smartap_20180111.Structure.Demo_RecyclerView;
@@ -67,7 +78,7 @@ import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener  {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -195,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements
         daidaigou = new DaidaigouView(this);
         //初始化了DaidaigouView後初始化cursorload
         initCursorLoader();
-        setContentView(daidaigou.getView());
+        setContentView(mainView);
         //startMainActivity();
     }
 
@@ -232,18 +243,23 @@ public class MainActivity extends AppCompatActivity implements
     */
     private void initMainActivity(@NotNull View view){
         toolbar = view.findViewById(R.id.app_tab_toolbar);
+        //toolbar.setLogo(R.drawable.ic_header);
         toolbar.setTitle(getResources().getString(R.string.title_name));
+        toolbar.setSubtitle("this is subtitle");
         toolbar_text = view.findViewById(R.id.toolbar_text);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
         NavigationView navigationView = mainView.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Log.i(TAG, "initMainActivity: finish");
-
+        initdata();
+        initTabView();
     }
 
     private void initCursorLoader(){
@@ -297,16 +313,18 @@ public class MainActivity extends AppCompatActivity implements
 
     protected void initdata(){
         mdata=new ArrayList<String>();
-        for (int i='A';i<'z';i++){
+        for (int i='A';i<'Z';i++){
             mdata.add(""+(char)i);
         }
     }
 
     public void initTabView(){
         //mTabLayout.setVisibility(View.INVISIBLE);
+        mTabLayout=mainView.findViewById(R.id.app_tablayout);
+        mViewPager=mainView.findViewById(R.id.container);
         mTitleList.add(this.getResources().getString(R.string.tab_recentdevice));
         mTitleList.add(this.getResources().getString(R.string.tab_listdevice));
-        mTitleList.add(this.getResources().getString(R.string.tab_setting));
+        mTitleList.add(this.getResources().getString(R.string.tab_scene));
         mTitleList.add(this.getResources().getString(R.string.tab_4));
         myview1=mInflater.inflate(R.layout.layout_list,null);
         myview2=mInflater.inflate(R.layout.layout_list,null);
@@ -320,20 +338,19 @@ public class MainActivity extends AppCompatActivity implements
         mViewPager.setAdapter(myPagerAdapter);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewPager);
-        try {
-            mTabLayout.getTabAt(0).setIcon(R.drawable.ic_jilu);
-            mTabLayout.getTabAt(1).setIcon(R.drawable.ic_device);
-            mTabLayout.getTabAt(2).setIcon(R.drawable.ic_setting);
-            mTabLayout.getTabAt(3).setIcon(R.drawable.ic_test);
-        }catch (NullPointerException e){
-            Log.e(TAG, "mTabLayout: setIcon is null:"+e,null );
-        }
+
+        Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_jilu);
+        Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_device);
+        Objects.requireNonNull(mTabLayout.getTabAt(2)).setIcon(R.drawable.ic_setting);
+        Objects.requireNonNull(mTabLayout.getTabAt(3)).setIcon(R.drawable.ic_test);
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int color =getResources().getColor(R.color.colorGreen);
+                int color = ContextCompat.getColor(getApplicationContext(),R.color.colorGreen);
                 try {
                     Drawable drawable = tab.getIcon();
+                    assert drawable != null;
                     drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 }catch (NullPointerException e){
                     Log.e(TAG, "onTabSelected: setcolorfilter is null:"+e, null);
@@ -342,9 +359,10 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                int color = getResources().getColor(R.color.colorBlack);
+                int color = ContextCompat.getColor(getApplicationContext(),R.color.colorBlack);
+                ;
                 try{
-                    tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+                    Objects.requireNonNull(tab.getIcon()).setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 }catch (NullPointerException e){
                     Log.e(TAG, "onTabUnselected: setcolorfilter is null:"+e,null );
                 }
@@ -359,8 +377,10 @@ public class MainActivity extends AppCompatActivity implements
 
         recyclerView=myview1.findViewById(R.id.recyclerView);
         //Log.i(TAG, "initTabView: recyclerView findView");
-        recyclerView.addItemDecoration(new Demo_RecyclerView(this,
-                Demo_RecyclerView.VERTICAL_LIST));
+        //recyclerView.addItemDecoration(new Demo_RecyclerView(this,
+                //Demo_RecyclerView.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new MyRecyclerAdpter.SpaceItemDecoration(
+                40,50));
         //Log.i(TAG, "initTabView: recycleView additemdecoration");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
@@ -900,7 +920,7 @@ public class MainActivity extends AppCompatActivity implements
             return 3;
         }
     }
-    class   MyPagerAdapter extends PagerAdapter {
+    class MyPagerAdapter extends PagerAdapter {
         private List<View> mViewList;
 
         public MyPagerAdapter(List<View> mViewList) {
@@ -926,17 +946,31 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(mViewList.get(position));//删除页卡
+
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mTitleList.get(position);//页卡标题
+            SpannableString s = new SpannableString(mTitleList.get(position));
+            //s.setSpan(new TypefaceSpan("sans-serif"),0,s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //s.setSpan(new AbsoluteSizeSpan(30),0,s.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            /*
+            Drawable image = ContextCompat.getDrawable(MainActivity.this,R.drawable.ic_jilu);
+            assert image != null;
+            image.setBounds(0,0,0,0);
+            ImageSpan imageSpan = new ImageSpan(image,ImageSpan.ALIGN_BOTTOM);
+            if (position == 0) {
+                s.setSpan(imageSpan, s.length() - 1, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+             */
+            return s; //页卡标题
         }
 
     }
 
     public void button_oneMonth(View view){
         daidaigou.setDateforTime(30);
+
         //get_listview_record(view);
     }
     public void button_sixMonth(View view){

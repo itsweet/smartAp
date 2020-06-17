@@ -1,6 +1,7 @@
 package com.example.lit.smartap_20180111;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +81,7 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position){
+    public void onBindViewHolder(final MyViewHolder holder, int position){
         Log.i(TAG, "onBindViewHolder: start :"+position);
         if (signlist.get(position)){
             holder.constraintLayout.setVisibility(View.VISIBLE);
@@ -118,15 +121,16 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(signlist.get(position)){
-                    signlist.set(position,false);
+                int pos = holder.getAdapterPosition();
+                if(signlist.get(pos)){
+                    signlist.set(pos,false);
                 }else {
-                    signlist.set(position,true);
+                    signlist.set(pos,true);
                 }
-                if (selcetPosition!=position && selcetPosition!=-1){
+                if (selcetPosition!=pos && selcetPosition!=-1){
                     signlist.set(selcetPosition,false);
                 }
-                selcetPosition=position;
+                selcetPosition=pos;
                 notifyDataSetChanged();
             }
         });
@@ -174,6 +178,45 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
             listView=view.findViewById(R.id.hide_listview);
             constraintLayout = view.findViewById(R.id.constraintLayout_hide);
             Log.i(TAG, "MyViewHolder: finishi");
+        }
+    }
+
+    public static class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private final int normal;
+        private final int margin;
+
+        @Override
+        public void getItemOffsets(@NotNull Rect outRect, @NotNull View view, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            int childAdapterPosition = parent.getChildAdapterPosition(view);
+
+            if (childAdapterPosition == 0 ) {
+                outRect.top = normal;
+            }else {
+                outRect.top = 0;
+            }
+            outRect.bottom = normal;
+            outRect.right = margin;
+            outRect.left = margin;
+            /*
+            if (childAdapterPosition % 3 == 0) {
+                outRect.right = normal;
+                outRect.left = margin;
+            } else if (childAdapterPosition % 3 == 1) {
+                outRect.right = margin;
+                outRect.left = margin;
+            } else if (childAdapterPosition % 3 == 2) {
+                outRect.right = normal;
+                outRect.left = margin;
+            }
+             */
+
+        }
+
+        public SpaceItemDecoration(int normal, int margin) {
+            this.normal = normal;
+            this.margin = margin;
         }
     }
 }

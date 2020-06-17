@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">smartAp</string>
     <string name="title_name">Smart Home</string>
-    <string name="offline">(离线)</string>
+    <string name="offline">(未连接)</string>
     <string name="linking">(连接中...)</string>
     <string name="tab_recentdevice">最近设备</string>
     <string name="tab_listdevice">设备列表</string>
-    <string name="tab_setting">高级设置</string>
+    <string name="tab_scene">场景设置</string>
     <string name="tab_4">列表4</string>
     <string name="adddevices">添加设备</string>
     <string name="section_format">Hello World from section: %1$d</string>
