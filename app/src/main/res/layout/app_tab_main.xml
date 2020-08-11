@@ -1,96 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.lit.smartap_20180111.MainActivity"
+    tools:context=".MainActivity"
     >
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_tab_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:subtitleTextColor="@color/colorPrimaryDark"
+            app:title="@string/title_name"
+            app:titleTextColor="@color/colorPrimaryDark">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="end"
+                android:onClick="AddDevicesView"
+                app:srcCompat="@drawable/ic_add_black" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="end"
+                app:srcCompat="@android:drawable/sym_action_email" />
+            <TextView
+                android:id="@+id/toolbar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWite"
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/app_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/container"
+            android:layout_alignParentBottom="true"
             android:background="@android:color/white"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabIndicatorColor="@color/colorWite">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/app_tab_toolbar"
-                android:layout_width="match_parent"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:subtitleTextColor="@color/colorPrimaryDark"
-                app:title="@string/title_name"
-                app:titleTextColor="@color/colorPrimaryDark">
+                android:text="one" />
 
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="two" />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:onClick="AddDevicesView"
-                    app:srcCompat="@drawable/ic_add_black" />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="three" />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    app:srcCompat="@android:drawable/sym_action_email" />
-
-                <TextView
-                    android:id="@+id/toolbar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorWite"
-                    android:text=""
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
-
-            </android.support.v7.widget.Toolbar>
-
-
-        </android.support.design.widget.AppBarLayout>
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="four" />
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/app_tablayout"
-        android:layout_below="@id/appbar">
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
     </android.support.v4.view.ViewPager>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/app_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/container"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        app:tabIndicatorColor="@color/colorWite">
 
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="one" />
 
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="two" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="three" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="four" />
-    </android.support.design.widget.TabLayout>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

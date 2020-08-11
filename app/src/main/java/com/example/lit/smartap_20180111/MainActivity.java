@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements
     private TextView mtextView,toolbar_text;
     private PopupWindow popupWindow;
     private RecyclerView recyclerView;
-    private MyRecyclerAdpter recyclerAdater;
     private List<String> mdata;
     private int selcetPosition;
     private boolean islogin; //为true 表示登录，为false 表示注册
@@ -291,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void initdata(){
         mdata=new ArrayList<String>();
         for (int i='A';i<'Z';i++){
-            mdata.add(""+(char)i);
+            mdata.add("灯泡"+(char)i);
         }
     }
 
@@ -363,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(linearLayoutManager);
         //Log.i(TAG, "initTabView: recycleView setLayoutManager");
-        recyclerAdater=new MyRecyclerAdpter(this,mdata);
+        MyRecyclerAdpter recyclerAdater=new MyRecyclerAdpter(this,mdata);
         recyclerAdater.setOnItemClickListener(new MyRecyclerAdpter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {

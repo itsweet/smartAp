@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toolbar;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -51,8 +52,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         android.support.v7.app.ActionBar actionBar=getSupportActionBar();
         try {
+            assert actionBar != null;
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_left);
         }catch (NullPointerException e){
             Log.e(TAG, "onCreate: actionBar eroor: "+e,null );
         }
@@ -62,6 +65,12 @@ public class SearchActivity extends AppCompatActivity {
         init();
     }
     private void init(){
+        try {
+            SmartConfig smartConfig = new SmartConfig(this);
+            smartConfig.send("hello");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
         final GifImageButton searching = findViewById(R.id.searchimage);
         searching.setOnClickListener(new View.OnClickListener() {
             @Override

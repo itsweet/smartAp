@@ -3,7 +3,6 @@ package com.example.lit.smartap_20180111;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -107,8 +105,8 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
         }
 
         holder.tv1.setText(data.get(position));
-        holder.tv2.setText(" 3 ");
-        holder.tv3.setText(" 1 ");
+        //holder.tv2.setText(" 3 ");
+        //holder.tv3.setText(" 1 ");
         holder.hidetextview.setText("hide part");
         holder.listView.setAdapter(new SimpleAdapter(this.context,
                 initlistdata(),
@@ -160,8 +158,8 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tv1,tv2,tv3,hidetextview;
-        ImageView imageView;
+        TextView tv1,hidetextview;
+        ImageView imageView,tv2,tv3;
         ImageView imageButton;
         ListView listView;
         ConstraintLayout constraintLayout;
@@ -171,7 +169,7 @@ public class MyRecyclerAdpter extends RecyclerView.Adapter<MyRecyclerAdpter.MyVi
             super(view);
             tv1 =view.findViewById(R.id.devicename);
             tv2 = view.findViewById(R.id.power);
-            tv3 = view.findViewById(R.id.singnal);
+            tv3 = view.findViewById(R.id.signal);
             imageView = view.findViewById(R.id.imageView);
             imageButton = view.findViewById(R.id.imageButton);
             hidetextview = view.findViewById(R.id.hide_testview);
