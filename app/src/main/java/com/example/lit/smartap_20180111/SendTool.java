@@ -30,6 +30,13 @@ import com.google.gson.reflect.TypeToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.security.interfaces.RSAPublicKey;
@@ -99,9 +106,6 @@ public class SendTool {
     public void setListener(MqttSenderListener listener) {
         this.listener = listener;
     }
-
-
-    Handler handler = new Handler();
 
     Thread recThread = new Thread(new Runnable() {
         @Override
@@ -235,6 +239,68 @@ public class SendTool {
         bytes[5]=(byte) command;
 
         return bytes;
+    }
+
+    private DatagramPacket scanGateway(){
+        final byte[] header = {0xf,0x55};
+        byte[] len = {0x00,12};
+        byte frame= (byte)0|(0x02&0x7f);
+        byte version = 1;
+        byte option = 0;
+        byte[] cmd =  new byte[2];
+        int cmd_int = IOT_CMD.Scan_gateway.getValue();
+        cmd[0] = (byte)(cmd_int>>8);
+        cmd[1] = (byte)(cmd_int&0x00ff);
+        byte cmd_option=0;
+        final byte[] end={0xf,0xA};
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            baos.write(header);
+            baos.write(len);
+            baos.write(frame);
+            baos.write(version);
+            baos.write(option);
+            baos.write(cmd);
+            baos.write(cmd_option);
+            baos.write(end);
+        }catch (IOException err){
+            err.printStackTrace();
+        }
+        try {
+            DatagramPacket scangw = new DatagramPacket(baos.toByteArray(),baos.size(),
+                    InetAddress.getByName("0.0.0.0"),
+                    8888
+            );
+            return scangw;
+        }catch (UnknownHostException err){
+            err.printStackTrace();
+        }
+        return null;
+    }
+
+    public byte[] scanGateWay(){
+        DatagramSocket ds=null;
+        try {
+            ds = new DatagramSocket();
+
+            ds.setSoTimeout(1000);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        int i = 5;
+        while (i-- > 0){
+            DatagramPacket rec = new DatagramPacket(new byte[512],512);
+            try {
+                assert ds != null;
+                ds.send(scanGateway());
+                ds.receive(rec);
+                ds.close();
+                return rec.getData();
+            }catch (Exception e){
+                Log.e(TAG, "scanGateWay: "+e.getMessage());
+            }
+        }
+        return null;
     }
 
     private Request makeRequest(CoAP.Type type,String host,int port,String uri_path,String uri_query,byte[] token,byte[] payload){

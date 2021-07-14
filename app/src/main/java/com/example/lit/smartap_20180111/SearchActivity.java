@@ -1,5 +1,6 @@
 package com.example.lit.smartap_20180111;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,11 +13,15 @@ import android.graphics.Path;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.lit.smartap_20180111.core.CoapClient;
 import com.example.lit.smartap_20180111.core.server.resources.Resource;
+import com.example.lit.smartap_20180111.data.IOT_CMD;
 
 import android.os.Build;
 import android.util.AttributeSet;
@@ -29,11 +34,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
     String TAG = "SearchActivity";
     AnimationDrawable animationDrawable;
     boolean isSearchcheck=false;
+    final int GATEWAY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState ){
@@ -65,13 +76,17 @@ public class SearchActivity extends AppCompatActivity {
         init();
     }
     private void init(){
+        /*
         try {
             SmartConfig smartConfig = new SmartConfig(this);
             smartConfig.send("hello");
         }catch (IOException e){
             e.printStackTrace();
         }
+         */
         final GifImageButton searching = findViewById(R.id.searchimage);
+        searching.setImageResource(R.drawable.saomiao);
+        /*
         searching.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +99,8 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+        */
+
         /*
         ImageView imageView = findViewById(R.id.searchimage);
         animationDrawable=(AnimationDrawable) imageView.getBackground();
@@ -113,10 +130,32 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         */
-        initdata();
-        ListView listView = findViewById(R.id.search_listview);
+        //initdata();
+        //ListView listView = findViewById(R.id.search_listview);
 
         //listView.setAdapter(new SimpleAdapter(this,));
+        new  ScanGW_Thread().start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == GATEWAY) {
+                Toast.makeText(getApplicationContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    private class ScanGW_Thread extends Thread{
+        @Override
+        public void run() {
+            SendTool sendTool = new SendTool(getApplicationContext());
+            Message msg=new Message ();
+            msg.what = GATEWAY;
+            msg.obj = sendTool.scanGateWay();
+            handler.sendMessage(msg);
+        }
     }
 
 
